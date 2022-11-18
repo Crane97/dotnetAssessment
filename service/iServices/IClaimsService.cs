@@ -10,5 +10,6 @@ namespace FinalAssessmentDotNet.service.iServices
         public Claims AddClaim(Claims claim);
         public Claims UpdateClaims(Claims claim);
 
+        public IEnumerable<Claims> getClaimsByVehicleId(int id);
     }
 }

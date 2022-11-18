@@ -31,5 +31,21 @@ namespace FinalAssessmentDotNet.service
             repository.SaveChanges();
             return claim;
         }
+
+        public IEnumerable<Claims> getClaimsByVehicleId(int id)
+        {
+            List<Claims> allClaims = repository.Claims.ToList();
+            List<Claims> result = new List<Claims>();
+
+            foreach (var claim in allClaims)
+            {
+                if (claim.Vehicle_Id == id)
+                {
+                    result.Add(claim);
+                }
+            }
+
+            return result;
+        }
     }
 }

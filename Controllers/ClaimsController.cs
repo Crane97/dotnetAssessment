@@ -33,5 +33,11 @@ namespace FinalAssessmentDotNet.Controllers
             return claimService.UpdateClaims(claims);
         }
 
+        [HttpGet("/claimByVehicle/{id:int}")]
+        public IEnumerable<Claims> GetClaimsByVehicleId(int id)
+        {
+            return claimService.getClaimsByVehicleId(id);
+        }
+
     }
 }
