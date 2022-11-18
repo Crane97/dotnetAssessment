@@ -4,7 +4,7 @@ namespace FinalAssessmentDotNet.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class OwnerController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -13,12 +13,12 @@ namespace FinalAssessmentDotNet.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public OwnerController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet(Name = "owners/all")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -28,6 +28,22 @@ namespace FinalAssessmentDotNet.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost(Name = "add")]
+        public async Task Post(Owner owner)
+        {
+            _context.Add(owner);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPut(Name = "update")]
+        public async Task Put(Owner owner)
+        {
+            _context.Update(owner);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
