@@ -1,3 +1,5 @@
+using FinalAssessmentDotNet.model;
+using FinalAssessmentDotNet.service.iServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalAssessmentDotNet.Controllers
@@ -6,51 +8,30 @@ namespace FinalAssessmentDotNet.Controllers
     [Route("api/[controller]")]
     public class VehicleController : ControllerBase
     {
-        private readonly VehicleRepository _vehiclesRepository;
+        private readonly IVehiclesService vehiclesService;
 
-        public VehicleController(ILogger<WeatherForecastController> logger)
+        public VehicleController(IVehiclesService vehiclesService)
         {
-            _logger = logger;
+            this.vehiclesService = vehiclesService;
         }
 
-        [HttpGet(Name = "vehicles/all")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "/vehicles/all")]
+        public IEnumerable<Vehicles> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return vehiclesService.GetVehicles();
         }
 
-        [HttpGet(Name = "vehicles/get/{id}")]
-        public IEnumerable<WeatherForecast> Get(int id)
+
+        [HttpPost(Name = "/addVehicles")]
+        public Vehicles Post(Vehicles vehicle)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return vehiclesService.AddVehicles(vehicle);
         }
 
-        [HttpPost(Name = "add")]
-        public async Task Post(Vehicle vehicle)
+        [HttpPut(Name = "/updateVehicles")]
+        public Vehicles Put(Vehicles vehicle)
         {
-            _context.Add(vehicle);
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
-
-        [HttpPut(Name = "update")]
-        public async Task Put(Vehicle vehicle)
-        {
-            _context.Update(vehicle);
-            await _context.SaveChangesAsync();
-            return Ok();
+            return vehicle;
         }
 
 

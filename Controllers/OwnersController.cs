@@ -1,49 +1,36 @@
+using FinalAssessmentDotNet.model;
+using FinalAssessmentDotNet.service.iServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalAssessmentDotNet.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/[controller]")]
     public class OwnerController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        public readonly IOwnersService ownerService;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public OwnerController(ILogger<WeatherForecastController> logger)
+        public OwnerController(IOwnersService ownersService)
         {
-            _logger = logger;
+            this.ownerService = ownersService;
         }
 
-        [HttpGet(Name = "owners/all")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "/owners/all")]
+        public IEnumerable<Owners> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+           return ownerService.GetOwners();
         }
 
-        [HttpPost(Name = "add")]
-        public async Task Post(Owner owner)
+        [HttpPost(Name = "/addOwner")]
+        public Owners PostOwner(Owners owner)
         {
-            _context.Add(owner);
-            await _context.SaveChangesAsync();
-            return Ok();
+            return ownerService.AddOwner(owner);
         }
 
-        [HttpPut(Name = "update")]
-        public async Task Put(Owner owner)
+        [HttpPut(Name = "/updateOwner")]
+        public Owners PutOwner(Owners owner)
         {
-            _context.Update(owner);
-            await _context.SaveChangesAsync();
-            return Ok();
+            return owner;
         }
     }
 }

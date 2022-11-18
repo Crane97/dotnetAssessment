@@ -1,4 +1,5 @@
-﻿using FinalAssessmentDotNet.repos;
+﻿using FinalAssessmentDotNet.model;
+using FinalAssessmentDotNet.repos;
 using FinalAssessmentDotNet.service.iServices;
 
 namespace FinalAssessmentDotNet.service
@@ -11,5 +12,18 @@ namespace FinalAssessmentDotNet.service
         {
             this.repository = repository;
         }
+
+        public IEnumerable<Owners> GetOwners()
+        {
+            return repository.Owners.ToList();
+        }
+
+        public Owners AddOwner(Owners owners)
+        {
+            repository.Owners.Add(owners);
+            repository.SaveChanges();
+            return owners;
+        }
+
     }
 }

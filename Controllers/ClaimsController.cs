@@ -1,3 +1,5 @@
+using FinalAssessmentDotNet.model;
+using FinalAssessmentDotNet.service.iServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalAssessmentDotNet.Controllers
@@ -6,53 +8,29 @@ namespace FinalAssessmentDotNet.Controllers
     [Route("[controller]")]
     public class ClaimsController : ControllerBase
     {
+        public readonly IClaimsService claimService;
 
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public ClaimsController(ILogger<WeatherForecastController> logger)
+        public ClaimsController(IClaimsService claimService)
         {
-            _logger = logger;
+            this.claimService = claimService;
         }
 
-        [HttpGet(Name = "claims/all")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "/claims/all")]
+        public IEnumerable<Claims> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return claimService.GetClaims();
+        }
+        
+        [HttpPost(Name = "/addClaim")]
+        public Claims PostClaim(Claims claims)
+        {
+            return claimService.AddClaim(claims);
         }
 
-        [HttpGet(Name = "claims/get/{id}")]
-        public IEnumerable<WeatherForecast> Get(int id)
+        [HttpPut(Name = "/updateClaim")]
+        public Claims PutClaim(Claims claims)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
-
-        [HttpPost(Name = "add")]
-        public async Task Post(Claims claims)
-        {
-            _context.Add(claims);
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
-
-        [HttpPut(Name = "update")]
-        public async Task Put(Claims claims)
-        {
-            _context.Add(claims);
-            await _context.SaveChangesAsync();
-            return Ok();
+            return claims;
         }
 
     }
