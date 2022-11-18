@@ -31,5 +31,21 @@ namespace FinalAssessmentDotNet.service
             repository.SaveChanges();
             return vehicle;
         }
+
+        public IEnumerable<Vehicles> GetVehiclesByOwner(int OwnerId)
+        {
+            List<Vehicles> allVehicles = repository.Vehicles.ToList();
+            List<Vehicles> result = new List<Vehicles>();
+
+            foreach (var vehicle in allVehicles)
+            {
+                if(vehicle.Owner_Id == OwnerId)
+                {
+                    result.Add(vehicle);
+                }
+            }
+
+            return result;
+        }
     }
 }

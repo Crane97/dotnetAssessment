@@ -1,3 +1,4 @@
+using FinalAssessmentDotNet.Migrations;
 using FinalAssessmentDotNet.model;
 using FinalAssessmentDotNet.service.iServices;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,12 @@ namespace FinalAssessmentDotNet.Controllers
         public Vehicles Put(Vehicles vehicle)
         {
             return vehiclesService.UpdateVehicles(vehicle);
+        }
+
+        [HttpGet("/vehiclesByOwner/{id:int}")]
+        public IEnumerable<Vehicles> GetVehiclesByOwnerId(int id)
+        {
+            return vehiclesService.GetVehiclesByOwner(id);
         }
 
 

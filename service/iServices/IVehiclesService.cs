@@ -9,5 +9,7 @@ namespace FinalAssessmentDotNet.service.iServices
         public Vehicles AddVehicles(Vehicles vehicle);
 
         public Vehicles UpdateVehicles(Vehicles vehicle);
+
+        public IEnumerable<Vehicles> GetVehiclesByOwner(int OwnerId);
     }
 }
