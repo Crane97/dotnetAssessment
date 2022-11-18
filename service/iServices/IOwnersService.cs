@@ -7,5 +7,7 @@ namespace FinalAssessmentDotNet.service.iServices
         public IEnumerable<Owners> GetOwners();
 
         public Owners AddOwner(Owners owners);
+
+        public Owners UpdateOwner(Owners owners);
     }
 }

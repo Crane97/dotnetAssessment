@@ -8,5 +8,7 @@ namespace FinalAssessmentDotNet.service.iServices
         public IEnumerable<Claims> GetClaims();
 
         public Claims AddClaim(Claims claim);
+        public Claims UpdateClaims(Claims claim);
+
     }
 }

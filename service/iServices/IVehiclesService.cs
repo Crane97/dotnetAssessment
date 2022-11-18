@@ -7,5 +7,7 @@ namespace FinalAssessmentDotNet.service.iServices
         public IEnumerable<Vehicles> GetVehicles();
 
         public Vehicles AddVehicles(Vehicles vehicle);
+
+        public Vehicles UpdateVehicles(Vehicles vehicle);
     }
 }

@@ -24,5 +24,12 @@ namespace FinalAssessmentDotNet.service
             repository.SaveChanges();
             return vehicle;
         }
+
+        public Vehicles UpdateVehicles(Vehicles vehicle)
+        {
+            repository.Vehicles.Update(vehicle);
+            repository.SaveChanges();
+            return vehicle;
+        }
     }
 }

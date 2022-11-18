@@ -30,7 +30,7 @@ namespace FinalAssessmentDotNet.Controllers
         [HttpPut(Name = "/updateOwner")]
         public Owners PutOwner(Owners owner)
         {
-            return owner;
+            return ownerService.UpdateOwner(owner);
         }
     }
 }

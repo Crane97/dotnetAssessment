@@ -30,7 +30,7 @@ namespace FinalAssessmentDotNet.Controllers
         [HttpPut(Name = "/updateClaim")]
         public Claims PutClaim(Claims claims)
         {
-            return claims;
+            return claimService.UpdateClaims(claims);
         }
 
     }

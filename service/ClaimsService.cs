@@ -24,5 +24,12 @@ namespace FinalAssessmentDotNet.service
             repository.SaveChanges();
             return claim;
         }
+
+        public Claims UpdateClaims(Claims claim)
+        {
+            repository.Claims.Update(claim);
+            repository.SaveChanges();
+            return claim;
+        }
     }
 }

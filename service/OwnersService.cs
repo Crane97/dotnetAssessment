@@ -25,5 +25,12 @@ namespace FinalAssessmentDotNet.service
             return owners;
         }
 
+        public Owners UpdateOwner(Owners owner)
+        {
+            repository.Owners.Update(owner);
+            repository.SaveChanges();
+            return owner;
+        }
+
     }
 }

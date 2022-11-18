@@ -31,7 +31,7 @@ namespace FinalAssessmentDotNet.Controllers
         [HttpPut(Name = "/updateVehicles")]
         public Vehicles Put(Vehicles vehicle)
         {
-            return vehicle;
+            return vehiclesService.UpdateVehicles(vehicle);
         }
 
 
